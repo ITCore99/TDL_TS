@@ -1,0 +1,1 @@
+type HelloWord = string
