@@ -1,4 +1,3 @@
-
 /**
  * Symbol 类型
  */
@@ -115,6 +114,10 @@ console.log(tupleType[0]); // semlinker
 console.log(tupleType[1]); // true
 
 tupleType = [true, "semlinker"];
+// 无法通过下标新增
+tupleType[3] = false
+// 但是可以通过push的方式推入已经定义过的类型值
+tupleType.push(false)
 tupleType = ["semlinker"];
 
 /**
@@ -168,8 +171,8 @@ type EventNames = 'click' | 'scroll' | 'mousemove';
  * 交叉类型 使用按位 & (📢 容易理解错误)
  * 将多个类型叠加到到一起
  */
-type PointX = { x: number} 
-type PointY = { y: number} 
+type PointX = { x: 「」} 
+type PointY = { x: string} 
 type Point = PointX & PointY
 const point: Point = {
   x: 1,
@@ -256,16 +259,16 @@ function reverse2(x: number | string): number | string | void {
  * 在面向对象语言中，接口是一个很重要的概念，它是对行为的抽象，而具体如何行动需要由类去实现
  */
 interface Person {
-  name: string,
-  age: number
+  name: string;
+  age: number;
 }
 let semlinker: Person = {
   name: "semlinker",
   age: 33,
 }
 // 还可以加一些限制符
-namespace interfaceTest1 {
-  interface Person {
+export namespace interfaceTest1 {
+  export interface Person {
     readonly name: string;
     age?: number;
   }
@@ -288,7 +291,7 @@ namespace interfaceTest1 {
  */
  interface IKK {
   name: string,
-  say: (x: string) => string
+  say(x: string):string
  }
  const kk:IKK = {
    name: '111',
@@ -547,3 +550,17 @@ namespace innerTypeTest {
 
 }
 
+
+interface D { d: boolean; }
+interface E { e: string; }
+interface F { f: number; }
+
+interface A { x: D; y: number}
+interface B { x: E; }
+interface C { y: F; }
+
+type ABC = A & B & C;
+// 接口不能继承 相同属性的接口
+interface ABC2 extends A, C {
+
+}
